@@ -1,16 +1,10 @@
-import email
-from multiprocessing import context
-from tokenize import group
-from turtle import title
 from datetime import datetime
-from urllib.request import Request
 from django.shortcuts import render 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate , login ,logout
 from.forms import LoginForm, SingUpForm , PostForm
 from django.contrib import messages
 from.models import Post ,Contact
-
 from django.contrib.auth.models import Group
 # Create your views here.
 def home(request):
