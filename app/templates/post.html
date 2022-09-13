@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Add Post{% endblock title %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<style>
+    .container{
+        
+        padding: 15px;
+    }
+    body{
+        background-color: rgb(94, 86, 76);
+    }
+</style>
+<div class="container">
+ 
+ <h4 class="text-center alert alert-info mt-3">Show Post Information</h4>
+ <a href="{% url 'addpost' %}" class="btn btn-success mb-2">Add Posts</a>
+ {% if posts %}
+ <table class="table table-hover bg-white">
+    <thead>
+        <tr class="text-center">
+            <th scope="col" style="width: 2%">ID</th>
+            <th scope="col" style="width: 18%">Title</th>
+            <th scope="col" style="width: 55%">Description</th>
+            <th scope="col" style="width: 80%">image</th>
+            <th scope="col" style="width: 15%">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <th class="row p-5">{{post.id}}</th>
+            <td>{{post.title}}</td>
+            <td>{{post.desc}}</td>
+            <td><img src="/media/{{post.image}}" alt=""></td>
+            <td class="text-center">
+               {%if perms.blog.delete_post %}
+               <a class="btn my-3 bg-success" href="{% url 'editpost' post.id %}">Edit</a>
+                <form action="{% url 'delete' post.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn bg-danger">Delete</button>
+                    
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{% else %}
+<h4 class="text-center alert alert-warning">No Records</h4>
+{% endif %}
+</div>
+
+{% endblock content %}

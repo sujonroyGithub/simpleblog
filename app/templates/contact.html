@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Contact {% endblock title %}
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+    .container{
+        background-color: rgb(176, 185, 165);
+        font-style: italic;
+        font-weight: bolder;
+
+    }
+</style>
+<div class="container p-10">
+    {% if messages %}
+   {% for message in messages %}
+     <p {% if message.tags %} class="alert alert-dismissible alert-{{message.tags}} mb-5 " {% endif %}>{{message}} <button type="button" class="btn-close bg-primary" data-bs-dismiss="alert" aria-label="Close">X</button></p>
+   {% endfor %}
+   {% endif %}
+<h1 class="my-5">Contact Us</h1>
+
+<form action="{% url 'contact' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleInputName1" class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" id="exampleInputName">
+      </div>
+    <div class=" mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" name="desc" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Message ....</label>
+      </div>
+   
+    
+    <button type="submit" class="btn my-3 bg-primary">Submit</button>
+  </form>
+</div>
+  
+{% endblock content %}

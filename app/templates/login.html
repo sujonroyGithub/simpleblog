@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home {% endblock title %}
+{% block content %}
+<style>
+  form{
+    padding: 35px;
+    background-color: rgb(82, 200, 232);
+    border: black;
+    border-radius: 25px;
+    
+  }
+  .al{
+    padding: 35px;
+    background-color: rgb(19, 228, 78);
+    border: black;
+    border-radius: 11px;
+    margin: 5px;
+  }
+  h1{
+    font-size: 2.3rem;
+    color: rgb(26, 188, 232);
+  }
+</style>
+<div class="container p-10 ">
+   <h1 class="my-4  text-center"><strong>Login</strong> </h1>
+   {% if messages %}
+   {% for message in messages %}
+     <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5 " {% endif %}>{{message}}</p>
+   {% endfor %}
+   {% endif %}
+   <form action="" method="post" novalidate>
+    {% csrf_token %}
+     {% for fm in form %}
+     <div class="form-group my-3 font-bold ">
+      {{fm.label_tag}} {{fm}} <small class="text-warning"> {{fm.errors| striptags}}</small>
+     </div>
+      {% endfor %}
+     <input type="submit" class="btn my-3 bg-success btn-primary" value="Login">
+     {% if form.non_field_errors %}
+     {% for error in form.non_field_errors %}
+     <p class="alert  alert-danger my-3">{{errors}}</p>
+     {% endfor %}
+     {% endif %}
+   </form>
+    
+   <div class="alert font-bold al alert-success" role="alert">
+    If You Don't have any account !!! <a href="/user_singup" class=" mx-2 btn btn-info"><strong>Create Account/ Singup</strong> </a>
+  </div>
+     
+</div>
+
+{% endblock content %}
+

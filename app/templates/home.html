@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home {% endblock title %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+  {% if messages %}
+    {% for message in messages %}
+      <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5 " {% endif %}>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+   <style>
+    .font{
+      font-size: 2rem;
+    }
+    .zero{
+      padding: 25px;
+    }
+    
+ 
+   </style>
+    <h1 class="my-3 text-center font"> <strong>Welcome to Simple Blog</strong> </h1>
+    {% for post in posts %}
+      <div class="row">
+        <div class=" col-lg-2 hidden sm:lg-2 sm:inline  profile">
+          <h1 class="mt-5  text-center font"></h1>
+          <p class="mt-2  text-center font"></p>
+        </div>
+      <div class="  col-sm-12 col-lg-8   zero">
+         <h3 class="font"><strong> {{post.title}}</strong> </h3>
+         <p><strong>{{post.desc}}</strong></p>
+         <img class="text-center" src="/media/{{post.image}}" alt="">
+    
+      </div>
+      <div class=" col-lg-2 hidden sm:lg-2 sm:inline  profile">
+        <h1 class="mt-5  text-center font"></h1>
+        <p class="mt-2  text-center font"></p>
+   </div>
+       
+    {% endfor %}
+     
+ </div>
+     
+</div>
+
+{% endblock content %}
+
