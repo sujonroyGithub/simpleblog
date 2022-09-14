@@ -21,21 +21,24 @@
  {% if posts %}
  <table class="table table-hover bg-white">
     <thead>
-        <tr class="text-center">
-            <th scope="col" style="width: 2%">ID</th>
-            <th scope="col" style="width: 18%">Title</th>
+        <tr class="text-center border-black">
+            <th scope="col " style="width: 2%">ID</th>
+            <th scope="col" style="width: 12%">Title</th>
             <th scope="col" style="width: 55%">Description</th>
             <th scope="col" style="width: 80%">image</th>
+            <th scope="col" style="width: 5%">Date</th>
             <th scope="col" style="width: 15%">Action</th>
         </tr>
     </thead>
     <tbody>
         {% for post in posts %}
         <tr>
-            <th class="row p-5">{{post.id}}</th>
-            <td>{{post.title}}</td>
-            <td>{{post.desc}}</td>
-            <td><img src="/media/{{post.image}}" alt=""></td>
+            <th class="row  mx-2  p-5">{{post.id}}</th>
+            <td class="border-black ">{{post.title}}</td>
+            <td class="border-black ">{{post.desc}}</td>
+           
+            <td class="border-black "><img src="/media/{{post.image}}" alt=""></td>
+            <td class="border-black ">{{post.date}}</td>
             <td class="text-center">
                {%if perms.blog.delete_post %}
                <a class="btn my-3 bg-success" href="{% url 'editpost' post.id %}">Edit</a>
@@ -55,5 +58,5 @@
 <h4 class="text-center alert alert-warning">No Records</h4>
 {% endif %}
 </div>
-
+{% include 'footer.html' %}
 {% endblock content %}

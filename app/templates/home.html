@@ -3,45 +3,52 @@
 {% block title %}Home {% endblock title %}
 {% block content %}
 {% include 'navbar.html' %}
-<div class="container">
+
+
+<body class="bg-sky-700">
   {% if messages %}
     {% for message in messages %}
       <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5 " {% endif %}>{{message}}</p>
     {% endfor %}
     {% endif %}
-   <style>
-    .font{
-      font-size: 2rem;
-    }
-    .zero{
-      padding: 25px;
-    }
-    
- 
-   </style>
-    <h1 class="my-3 text-center font"> <strong>Welcome to Simple Blog</strong> </h1>
-    {% for post in posts %}
-      <div class="row">
-        <div class=" col-lg-2 hidden sm:lg-2 sm:inline  profile">
-          <h1 class="mt-5  text-center font"></h1>
-          <p class="mt-2  text-center font"></p>
-        </div>
-      <div class="  col-sm-12 col-lg-8   zero">
-         <h3 class="font"><strong> {{post.title}}</strong> </h3>
-         <p><strong>{{post.desc}}</strong></p>
-         <img class="text-center" src="/media/{{post.image}}" alt="">
-    
-      </div>
-      <div class=" col-lg-2 hidden sm:lg-2 sm:inline  profile">
-        <h1 class="mt-5  text-center font"></h1>
-        <p class="mt-2  text-center font"></p>
-   </div>
-       
-    {% endfor %}
-     
- </div>
-     
-</div>
+  <h1 class="text-3x2 font-bold bg-sky-400 p-2 text-center">Welcome to my Simple Blog</h1>
 
+  <section class="parent-section ">
+    {% for post in posts %}
+    <div class="card flex flex-col lg:flex-row mx-10 md:mx-20 lg:mx-52 my-4 rounded-lg">
+      <img src="/media/{{post.image}}" alt="thumbnail" height="300" width="400" class="thumbnail ">
+      
+      
+      <div class="card-details flex flex-col justify-between">
+        <div class="top flex flex-row justify-between mx-4 font-semibold text-gray-500">
+          <div class="tag">#Admin sujon</div>
+          <div class="date">{{post.date}}}</div>
+        </div>
+
+
+        <div class="middle mx-2">
+          <h2 class="title text-2x1 font-bold">{{post.title}}</h2>
+          <p class="excerpt">{{post.desc}}</p>
+        </div>
+        <div class="bottom flex justify-between mx-2 text-sky-600">
+          <div class="author flex">
+            <img src="https://cdn-icons-png.flaticon.com/256/4105/4105458.png" alt="profile pix" height="40" width="50">
+            <p class="name mx-2 font-bold">Simple Blog</p>
+          </div>
+          <div class="readmore">
+            <a href="/about">Readmore
+              
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+</body>
+
+{% include 'footer.html' %}
 {% endblock content %}
+
 

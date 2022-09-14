@@ -1,4 +1,5 @@
 from dataclasses import fields
+from datetime import datetime
 from distutils.command.upload import upload
 from django import forms
 from .models import *
@@ -22,9 +23,10 @@ class LoginForm(AuthenticationForm):
    password = forms.CharField(label=_('Password'),strip=False,  widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'class':'form-control'}))
 
 class PostForm(forms.ModelForm):
+    date = forms.DateField(label=_('Date'),  widget=forms.DateInput(attrs={'type':'date' ,'class':'my-3'}))
     class Meta:
         model = Post
-        fields = ['title', 'desc', 'image']
-        labels = {'title':'Title', 'desc':'Description', 'image':'Add Image'}
+        fields = ['title', 'desc', 'image' ,'date']
+        labels = {'title':'Title', 'desc':'Description', 'image':'Add Image','date ': 'Date'}
         widgets = {'title':forms.TextInput(attrs={'class':'form-control my-3'}),
         'desc':forms.Textarea(attrs={'class':'form-control my-3 '})}

@@ -1,3 +1,4 @@
+
 from datetime import datetime
 from django.shortcuts import render 
 from django.http import HttpResponse,HttpResponseRedirect
@@ -6,11 +7,18 @@ from.forms import LoginForm, SingUpForm , PostForm
 from django.contrib import messages
 from.models import Post ,Contact
 from django.contrib.auth.models import Group
+import datetime
+
+
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
         posts = Post.objects.all()
-        return render(request, 'home.html', {'posts': posts})
+        user= request.user
+        full_name = user.get_full_name()
+       
+       
+        return render(request, 'home.html', {'posts': posts, 'full_name':full_name})
     else:
         return HttpResponseRedirect('/')
    
@@ -26,7 +34,7 @@ def contact(request):
             name = request.POST.get('name')
             email = request.POST.get('email')
             desc = request.POST.get('desc')
-            contact = Contact(name=name,email=email,desc=desc,date=datetime.today())
+            contact = Contact(name=name,email=email,desc=desc, date=datetime.today())
             contact.save()
             messages.success(request, ' Your Information Has been Sent Sucessfully..')
             
@@ -38,6 +46,7 @@ def contact(request):
 def post(request):
     if request.user.is_authenticated:
         posts = Post.objects.all()
+        
         return render(request, "post.html",{'posts':posts})
     else:
         return HttpResponseRedirect('/')
@@ -46,9 +55,9 @@ def post(request):
 def addpost(request):
   if request.user.is_authenticated:
     if request.method == "POST":
-          form = PostForm(request.POST, request.FILES)
+          form = PostForm(request.POST, request.FILES )
           if form.is_valid():
-          
+                     
              form.save()
              messages.success(request , "Successfully Added !!!")
              form =PostForm()
