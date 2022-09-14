@@ -14,11 +14,10 @@ import datetime
 def home(request):
     if request.user.is_authenticated:
         posts = Post.objects.all()
-        user= request.user
-        full_name = user.get_full_name()
+        
        
        
-        return render(request, 'home.html', {'posts': posts, 'full_name':full_name})
+        return render(request, 'home.html', {'posts': posts})
     else:
         return HttpResponseRedirect('/')
    
